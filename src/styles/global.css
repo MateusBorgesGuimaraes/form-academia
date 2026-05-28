@@ -1,0 +1,367 @@
+@import "tailwindcss";
+/* ── Fontes locais ── */
+@import "@fontsource/barlow-condensed/300.css";
+@import "@fontsource/barlow-condensed/400.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/barlow-condensed/800.css";
+@import "@fontsource/barlow-condensed/700-italic.css";
+@import "@fontsource/dm-sans/300.css";
+@import "@fontsource/dm-sans/400.css";
+@import "@fontsource/dm-sans/500.css";
+
+/* --- Plugins --- */
+@plugin "@tailwindcss/typography";
+
+/* ── Design Tokens ── */
+@theme {
+    /* Cores — backgrounds */
+    --color-black: #0a0a0a; /* background principal */
+    --color-black-mid: #111111; /* cards, seções alternadas */
+    --color-black-card: #161616; /* hover de cards */
+    --color-black-dark: #050505; /* footer, palette strip */
+
+    /* Cores — bordas */
+    --color-border: #1a1a1a; /* bordas padrão */
+    --color-border-mid: #222222; /* bordas internas em cards */
+    --color-border-sub: #333333; /* bordas de botões ghost */
+
+    /* Cores — acento */
+    --color-yellow: #d4ff00; /* acento principal */
+    --color-yellow-hover: #bfee00; /* hover do yellow */
+
+    /* Cores — texto */
+    --color-text-primary: #f0f0f0; /* texto principal claro */
+    --color-text-muted: #888888; /* texto secundário */
+    --color-text-subtle: #666666; /* texto terciário */
+    --color-text-ghost: #444444; /* texto muito apagado */
+    --color-text-dim: #333333; /* texto quase invisível */
+
+    /* Fontes */
+    --font-display: "Barlow Condensed", system-ui, sans-serif;
+    --font-sans: "DM Sans", system-ui, sans-serif;
+
+    /* Container */
+    --container-max: 1200px;
+    --container-padding: 3rem;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+}
+
+body {
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-text-subtle);
+    background-color: var(--color-black);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    overflow-wrap: break-word;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* ── Tipografia base ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+/* ── Layout ── */
+.wrapper {
+    width: 100%;
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding);
+}
+
+.section {
+    padding-block: var(--space-16);
+    border-top: 0.5px solid var(--color-border);
+}
+
+/* ── Componentes de texto ── */
+@layer components {
+    /* eyebrow — label acima do título */
+    .eyebrow {
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--color-yellow);
+    }
+
+    /* eyebrow muted — versão apagada */
+    .eyebrow-muted {
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        color: var(--color-text-ghost);
+    }
+
+    /* display title — headline grande em Barlow */
+    .title-display {
+        font-family: var(--font-display);
+        font-size: 120px;
+        font-weight: 800;
+        color: var(--color-text-primary);
+        text-transform: uppercase;
+        line-height: 0.88;
+        letter-spacing: -0.01em;
+    }
+
+    /* section title — título de seção */
+    .title-section {
+        font-family: var(--font-display);
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--color-text-primary);
+        text-transform: uppercase;
+        line-height: 1;
+    }
+
+    /* page title — título de página interna */
+    .title-page {
+        font-family: var(--font-display);
+        font-size: 60px;
+        font-weight: 800;
+        color: var(--color-text-primary);
+        text-transform: uppercase;
+        line-height: 0.9;
+    }
+
+    /* card title */
+    .title-card {
+        font-family: var(--font-display);
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--color-text-primary);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    /* italic yellow — acento itálico */
+    .accent {
+        font-style: italic;
+        color: var(--color-yellow);
+    }
+
+    /* body text */
+    .body-text {
+        font-size: 16px;
+        font-weight: 300;
+        color: var(--color-text-subtle);
+        line-height: 1.8;
+    }
+
+    /* small label */
+    .label {
+        font-family: var(--font-sans);
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-text-ghost);
+    }
+
+    /* ── Botões ── */
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-2);
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 12px 24px;
+        transition: all var(--transition);
+        white-space: nowrap;
+        cursor: pointer;
+        border: none;
+        border-radius: var(--radius-none);
+    }
+
+    .btn-yellow {
+        background: var(--color-yellow);
+        color: var(--color-black);
+    }
+
+    .btn-yellow:hover {
+        background: var(--color-yellow-hover);
+    }
+
+    .btn-dark {
+        background: var(--color-black);
+        color: var(--color-yellow);
+    }
+
+    .btn-dark:hover {
+        background: var(--color-black-mid);
+    }
+
+    .btn-outline {
+        background: transparent;
+        color: var(--color-text-subtle);
+        border: 0.5px solid var(--color-border-sub);
+    }
+
+    .btn-outline:hover {
+        color: var(--color-text-primary);
+        border-color: var(--color-text-subtle);
+    }
+
+    .btn-sm {
+        padding: 10px 20px;
+    }
+
+    /* ── Cards ── */
+    .card {
+        background: var(--color-black-mid);
+        padding: var(--space-6) var(--space-5);
+        border-top: 2px solid transparent;
+        transition:
+            border-color var(--transition),
+            background var(--transition);
+    }
+
+    .card:hover {
+        border-top-color: var(--color-yellow);
+        background: var(--color-black-card);
+    }
+
+    .card-featured {
+        background: var(--color-yellow);
+    }
+
+    /* ── Tags / Pills ── */
+    .tag {
+        display: inline-block;
+        font-family: var(--font-sans);
+        font-size: 9px;
+        font-weight: 300;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--color-text-ghost);
+        border: 0.5px solid var(--color-border-mid);
+        padding: 4px 8px;
+    }
+
+    .tag-yellow {
+        color: var(--color-yellow);
+        border-color: var(--color-border-sub);
+    }
+
+    /* ── Divisor ── */
+    .divider {
+        width: 100%;
+        height: 0.5px;
+        background: var(--color-border);
+        border: none;
+    }
+
+    /* ── Meta row (linha de metadado) ── */
+    .meta-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        background: var(--color-black-mid);
+    }
+
+    /* ── Marquee ── */
+    .marquee-wrap {
+        background: var(--color-yellow);
+        padding: 14px 0;
+        overflow: hidden;
+    }
+
+    .marquee-track {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee-scroll 14s linear infinite;
+    }
+
+    @keyframes marquee-scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .marquee-item {
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--color-black);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0 32px;
+        flex-shrink: 0;
+    }
+}

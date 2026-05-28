@@ -1,0 +1,55 @@
+---
+import ButtonLink from "./ButtonLink.astro";
+import Logo from "./Logo.astro";
+
+const links = [
+    {
+        id: 1,
+        href: "/aulas",
+        label: "AULAS",
+    },
+    {
+        id: 2,
+        href: "/personal",
+        label: "PERSONAL",
+    },
+    {
+        id: 4,
+        href: "/unidades",
+        label: "UNIDADES",
+    },
+    {
+        id: 5,
+        href: "/blog",
+        label: "BLOG",
+    },
+];
+---
+
+<header class="py-5 px-12 border-b-[0.5px] border-border">
+    <nav class="flex items-center justify-between wrapper">
+        <Logo />
+
+        <ul class="flex gap-7 items-center">
+            {
+                links.map((l) => (
+                    <li>
+                        <a
+                            href={l.href}
+                            class="text-xs uppercase text-text-subtle no-underline tracking-widest transition-colors duration-200 font-semibold"
+                        >
+                            {l.label}
+                        </a>
+                    </li>
+                ))
+            }
+        </ul>
+
+        <div class="flex gap-3">
+            <ButtonLink size="sm" variants="outline" href="/">
+                PLANOS
+            </ButtonLink>
+            <ButtonLink size="sm" href="/"> COMEÇAR AGORA </ButtonLink>
+        </div>
+    </nav>
+</header>

@@ -9,9 +9,27 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "cms": "decap-server",
+    "dev:cms": "concurrently \"npm run dev\" \"npm run cms\"",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.3.8"
+    "@astrojs/react": "^5.0.5",
+    "@fontsource/barlow-condensed": "^5.2.8",
+    "@fontsource/dm-sans": "^5.2.8",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/react": "^19.2.15",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.3.8",
+    "clsx": "^2.1.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "decap-server": "^3.7.0"
   }
 }

@@ -1,0 +1,28 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { cn } from "../lib/utils";
+
+interface Props extends HTMLAttributes<"a"> {
+    variants?: "yellow" | "dark" | "outline";
+    size?: "md" | "sm";
+    href: string;
+}
+
+const { variants = "yellow", size = "md", href } = Astro.props;
+---
+
+<a
+    href={href}
+    class={cn(
+        "btn",
+        variants === "yellow" && "btn-yellow",
+
+        variants === "dark" && "btn-dark",
+
+        variants === "outline" && "btn-outline",
+
+        size === "sm" && "btn-sm",
+    )}
+>
+    <slot />
+</a>
