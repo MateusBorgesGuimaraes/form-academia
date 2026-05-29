@@ -1,0 +1,76 @@
+---
+import CtaLink from "../../ui/CtaLink.astro";
+import Marquee from "../../ui/Marquee.astro";
+
+const features = [
+    {
+        id: "01",
+        title: "Equipamentos premium",
+        desc: "Linha completa Life Fitness e Technogym. Manutenção semanal garantida.",
+    },
+    {
+        id: "02",
+        title: "Área de peso livre",
+        desc: "500m² dedicados exclusivamente a halteres, barras e plataformas olímpicas.",
+    },
+    {
+        id: "03",
+        title: "Studios de aula",
+        desc: "Três studios climatizados com som imersivo para aulas coletivas.",
+    },
+    {
+        id: "04",
+        title: "Vestiários completos",
+        desc: "Armários individuais, chuveiros, sauna seca e área de descanso.",
+    },
+    {
+        id: "05",
+        title: "App exclusivo",
+        desc: "Agendamento de aulas, acompanhamento de treino e histórico de evolução.",
+    },
+];
+---
+
+<section>
+    <Marquee />
+    <div class="grid grid-cols-2">
+        <div class="py-12 bg-black-mid wrapper flex flex-col gap-6">
+            <span class="eyebrow-muted">Sobre a FORM </span>
+            <h2 class="title-page">
+                Estrutura<br /> de <span class="text-yellow italic">alto</span>
+                <br /> nível.
+            </h2>
+            <p class="max-w-100">
+                Equipamentos de última geração, instrutores certificados e um
+                ambiente que foi projetado para tirar o máximo de cada treino.
+                Sem desculpas, sem enrolação.
+            </p>
+            <CtaLink href="/">Conhecer a academia →</CtaLink>
+        </div>
+        <div class="bg-black wrapper py-12">
+            <ul
+                class="flex flex-col first:border-t-[0.5px] first:border-border"
+            >
+                {
+                    features.map((item) => (
+                        <li class="flex items-start gap-5 py-5 border-b-[0.5px] border-border">
+                            <span class="font-display text-sm font-semibold text-text-dim tracking-widest min-w-6 mt-0.5">
+                                {item.id}
+                            </span>
+                            <div>
+                                <>
+                                    <p class="font-display text-lg font-semibold text-text-primary uppercase tracking-[0.04em] mb-1">
+                                        {item.title}
+                                    </p>
+                                    <p class="text-sm font-light text-text-subtle leading-[1.6]">
+                                        {item.desc}
+                                    </p>
+                                </>
+                            </div>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,68 @@
+---
+import CtaLink from "../../ui/CtaLink.astro";
+import AulaCard from "../../ui/AulaCard.astro";
+
+const aulas = [
+    {
+        href: "/",
+        tag: "Destaque",
+        name: "HIIT",
+        description:
+            "Alta intensidade, resultados em tempo real. 45 min que mudam o jogo.",
+        meta: ["45 min", "Avançado"],
+    },
+
+    {
+        href: "/",
+        tag: "Força",
+        name: "Funcional",
+        description:
+            "Movimentos completos para força, mobilidade e condicionamento geral.",
+        meta: ["50 min", "Todos"],
+    },
+
+    {
+        href: "/",
+        tag: "Cardio",
+        name: "Spinning",
+        description:
+            "Ciclismo indoor com música e instrutor ao vivo. Pedale no seu limite.",
+        meta: ["45 min", "Intermediário"],
+    },
+
+    {
+        href: "/",
+        tag: "Luta",
+        name: "Boxing",
+        description:
+            "Técnica e condicionamento com base no boxe. Sem contato, máxima intensidade.",
+        meta: ["60 min", "Todos"],
+    },
+];
+---
+
+<section class="wrapper py-12">
+    <div class="flex justify-between">
+        <div>
+            <span class="eyebrow">Sobre a FORM </span>
+            <h2 class="title-page">
+                Encontre sua
+                <br />
+                <span class="text-yellow italic">modalidade.</span>
+            </h2>
+        </div>
+
+        <CtaLink href="/" variants="muted" class="self-end">
+            Ver grade completa →
+        </CtaLink>
+    </div>
+
+    <div class="grid grid-cols-4 gap-0.5 mt-12">
+        {
+            aulas.map((a, i) => (
+                <AulaCard card={a} featured={i === 0 ? true : false} />
+            ))
+        }
+    </div>
+</section>
+);

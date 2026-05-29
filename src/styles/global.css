@@ -345,6 +345,14 @@ h6 {
         animation: marquee-scroll 14s linear infinite;
     }
 
+    .marquee-sep {
+        color: var(--color-black);
+        opacity: 0.3;
+        padding: 0 8px;
+        font-family: var(--font-display), sans-serif;
+        font-size: 13px;
+    }
+
     @keyframes marquee-scroll {
         0% {
             transform: translateX(0);
