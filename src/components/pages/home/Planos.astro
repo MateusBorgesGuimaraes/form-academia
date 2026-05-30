@@ -1,0 +1,53 @@
+---
+import Plano from "../../ui/Plano.astro";
+const plans = [
+    {
+        name: "Basic",
+        price: "R$129",
+        href: "/",
+        items: [
+            "Musculação livre",
+            "Acesso 1 unidade",
+            "Avaliação física",
+            "App FORM",
+        ],
+    },
+
+    {
+        name: "Pro — Mais popular",
+        price: "R$219",
+        href: "/",
+        featured: true,
+        items: [
+            "Tudo do Basic",
+            "Aulas coletivas ilimitadas",
+            "Acesso todas as unidades",
+            "Planilha de treino",
+            "Consulta nutricional",
+        ],
+    },
+
+    {
+        name: "Elite",
+        price: "R$389",
+        href: "/",
+        items: [
+            "Tudo do Pro",
+            "4x personal/mês",
+            "Acompanhamento mensal",
+            "Área VIP vestiário",
+            "Prioridade agendamento",
+        ],
+    },
+];
+---
+
+<section class="wrapper py-12">
+    <span class="eyebrow">Planos</span>
+    <h2 class="title-page">
+        Escolha o seu<br /><span class="text-yellow italic">plano.</span>
+    </h2>
+    <div class="grid gap-0.5 grid-cols-3 mt-10">
+        {plans.map((plan) => <Plano {...plan} />)}
+    </div>
+</section>

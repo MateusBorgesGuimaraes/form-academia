@@ -1,0 +1,81 @@
+---
+import ButtonLink from "../../ui/ButtonLink.astro";
+
+const trainers = [
+    {
+        initials: "RV",
+        name: "Rafael Viana",
+        specialty: "Hipertrofia · Emagrecimento",
+        badge: "CREF ativo",
+    },
+    {
+        initials: "JS",
+        name: "Juliana Souza",
+        specialty: "Funcional · Mobilidade",
+        badge: "CREF ativo",
+    },
+    {
+        initials: "MC",
+        name: "Marcos Costa",
+        specialty: "Performance · Força",
+        badge: "CREF ativo",
+    },
+    {
+        initials: "AL",
+        name: "Ana Lima",
+        specialty: "Emagrecimento · HIIT",
+        badge: "CREF ativo",
+    },
+];
+---
+
+<section class="py-12 bg-black-mid">
+    <div class="wrapper grid grid-cols-2 gap-6 items-center">
+        <div class="flex flex-col gap-3">
+            <span class="eyebrow">Personal Training</span>
+            <h2 class="title-page">
+                Seu treino.<br />Sua <span class="text-yellow italic"
+                    >meta.</span
+                >
+                <br /> Seu ritmo.
+            </h2>
+            <p class="max-w-150 mt-6">
+                Personal trainers certificados com metodologia individualizada.
+                Avaliação física completa, planilha de treino e acompanhamento
+                nutricional integrado.
+            </p>
+            <div class="flex gap-3 mt-4">
+                <ButtonLink href="/" variants="yellow"
+                    >AGENDAR AVALIAÇÃO</ButtonLink
+                >
+                <ButtonLink href="/" variants="outline">VER PERFIS</ButtonLink>
+            </div>
+        </div>
+
+        <div class="flex flex-col gap-0.5">
+            {
+                trainers.map((t) => (
+                    <div class="flex items-center gap-4 bg-black-card px-5 py-4 transition-colors duration-200 hover:bg-[#1C1C1C]">
+                        <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-black font-display text-sm font-bold text-yellow">
+                            {t.initials}
+                        </div>
+
+                        <div class="flex-1">
+                            <p class="font-display text-base font-semibold uppercase tracking-[0.04em] text-text-primary">
+                                {t.name}
+                            </p>
+
+                            <p class="mt-0.5 text-xs font-light text-text-ghost">
+                                {t.specialty}
+                            </p>
+                        </div>
+
+                        <span class="whitespace-nowrap border border-border-sub px-2 py-1 text-[9px] font-medium uppercase tracking-[0.12em] text-yellow">
+                            {t.badge}
+                        </span>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

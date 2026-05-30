@@ -1,0 +1,77 @@
+---
+import ButtonLink from "../ui/ButtonLink.astro";
+import { cn } from "../../lib/utils";
+
+interface Props {
+    name: string;
+    price: string;
+    items: string[];
+    featured?: boolean;
+    href: string;
+}
+
+const { name, price, items, featured = false, href } = Astro.props;
+---
+
+<div class={cn("flex flex-col p-8", featured ? "bg-yellow" : "bg-black-mid")}>
+    <p
+        class={cn(
+            "font-display mb-5 text-xs font-semibold uppercase tracking-[0.2em]",
+            featured ? "text-black/40" : "text-text-ghost",
+        )}
+    >
+        {name}
+    </p>
+
+    <p
+        class={cn(
+            "font-display text-[56px] leading-none font-extrabold tracking-[-0.02em]",
+            featured ? "text-black" : "text-text-primary",
+        )}
+    >
+        {price}
+    </p>
+
+    <p
+        class={cn(
+            "mt-1 mb-6 text-xs font-light",
+            featured ? "text-black/40" : "text-text-ghost",
+        )}
+    >
+        por mês
+    </p>
+
+    <div class={cn("mb-6 h-0.5", featured ? "bg-black/15" : "bg-border")}></div>
+
+    <div class="flex flex-1 flex-col gap-2.5">
+        {
+            items.map((item) => (
+                <div
+                    class={cn(
+                        "flex items-center gap-2.5 text-xs font-light",
+                        featured ? "text-black/60" : "text-text-subtle",
+                    )}
+                >
+                    <div
+                        class={cn(
+                            "h-1 w-1 shrink-0 rounded-full",
+                            featured ? "bg-black" : "bg-yellow",
+                        )}
+                    />
+
+                    <span>{item}</span>
+                </div>
+            ))
+        }
+    </div>
+
+    <div class="mt-8">
+        <ButtonLink
+            href={href}
+            variants={featured ? "dark" : "outline"}
+            class={"w-full"}
+        >
+            Começar
+        </ButtonLink>
+    </div>
+</div>

@@ -8,7 +8,13 @@ interface Props extends HTMLAttributes<"a"> {
     href: string;
 }
 
-const { variants = "yellow", size = "md", href } = Astro.props;
+const {
+    variants = "yellow",
+    size = "md",
+    href,
+    class: className,
+    ...rest
+} = Astro.props;
 ---
 
 <a
@@ -22,7 +28,10 @@ const { variants = "yellow", size = "md", href } = Astro.props;
         variants === "outline" && "btn-outline",
 
         size === "sm" && "btn-sm",
+
+        className,
     )}
+    {...rest}
 >
     <slot />
 </a>
