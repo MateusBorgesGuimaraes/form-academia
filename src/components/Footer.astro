@@ -1,0 +1,166 @@
+---
+import ButtonLink from "./ui/ButtonLink.astro";
+
+const navLinks = [
+    { label: "Aulas", href: "/" },
+    { label: "Personal", href: "/" },
+    { label: "Planos", href: "/" },
+    { label: "Blog", href: "/" },
+    { label: "Unidades", href: "/" },
+];
+
+const socialLinks = [
+    { label: "Instagram", href: "/" },
+    { label: "TikTok", href: "/" },
+    { label: "YouTube", href: "/" },
+];
+
+const units = [
+    {
+        name: "FORM Paulista",
+        address: "Av. Paulista, 900 — Bela Vista, São Paulo",
+        schedule: [
+            { day: "Seg–Sex", hours: "5h30–23h" },
+            { day: "Sáb", hours: "7h–20h" },
+            { day: "Dom", hours: "8h–18h" },
+        ],
+    },
+    {
+        name: "FORM Pinheiros",
+        address: "R. dos Pinheiros, 450 — Pinheiros, São Paulo",
+        schedule: [
+            { day: "Seg–Sex", hours: "6h–22h30" },
+            { day: "Sáb", hours: "7h–20h" },
+            { day: "Dom", hours: "8h–17h" },
+        ],
+    },
+];
+
+const footerLinks = [
+    { label: "Privacidade", href: "/" },
+    { label: "Termos", href: "/" },
+    { label: "(11) 3000-0000", href: "/" },
+    { label: "contato@formacademia.com.br", href: "/" },
+];
+---
+
+<footer>
+    <div class="bg-yellow">
+        <div
+            class="wrapper py-12 grid gap-10 lg:grid-cols-[1fr_auto] items-center"
+        >
+            <div>
+                <p
+                    class="font-display text-[96px] font-extrabold leading-[0.85] tracking-[-0.03em] text-black"
+                >
+                    FORM.
+                </p>
+
+                <p
+                    class="mt-2 text-sm font-medium tracking-[0.04em] text-black/45"
+                >
+                    Musculação · Aulas · Personal — São Paulo desde 2018
+                </p>
+            </div>
+
+            <div class="flex flex-col items-end gap-4">
+                <ButtonLink href="/" variants="dark">
+                    Começar agora
+                </ButtonLink>
+
+                <p
+                    class="text-right text-xs font-medium tracking-[0.04em] text-black/40"
+                >
+                    Planos a partir de R$129/mês · Sem fidelidade
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-black">
+        <div class="wrapper">
+            <div
+                class="flex flex-wrap items-center justify-between gap-4 border-b border-border py-6"
+            >
+                <nav class="flex flex-wrap gap-7">
+                    {
+                        navLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class="text-xs uppercase tracking-wides text-text-ghost transition-colors hover:text-text-primary"
+                            >
+                                {link.label}
+                            </a>
+                        ))
+                    }
+                </nav>
+
+                <div class="flex gap-3">
+                    {
+                        socialLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class="font-display text-sm font-semibold uppercase tracking-wides text-text-dim transition-colors hover:text-yellow"
+                            >
+                                {link.label}
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+
+            <div class="grid border-b border-border md:grid-cols-2">
+                {
+                    units.map((unit, index) => (
+                        <div
+                            class:list={[
+                                "py-6",
+                                index === 0
+                                    ? "md:pr-10"
+                                    : "border-border md:border-l md:pl-10",
+                            ]}
+                        >
+                            <h3 class="mb-3 font-display text-lg font-bold uppercase tracking-[0.06em] text-text-primary">
+                                {unit.name}
+                            </h3>
+
+                            <p class="mb-3 text-sm font-light text-text-ghost">
+                                {unit.address}
+                            </p>
+
+                            <div class="flex flex-wrap gap-5">
+                                {unit.schedule.map((item) => (
+                                    <span class="text-xs font-light tracking-[0.04em] text-text-muted">
+                                        <span class="text-text-subtle">
+                                            {item.day}
+                                        </span>{" "}
+                                        {item.hours}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-4 py-4">
+                <span class="text-xs tracking-[0.04em] text-text-dim">
+                    © 2024 FORM Academia
+                </span>
+
+                <div class="flex flex-wrap gap-5">
+                    {
+                        footerLinks.map((link) => (
+                            <a
+                                href={link.href}
+                                class="text-xs text-text-dim transition-colors hover:text-text-ghost"
+                            >
+                                {link.label}
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
