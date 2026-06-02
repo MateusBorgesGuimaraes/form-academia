@@ -1,0 +1,146 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import ButtonLink from "../../components/ui/ButtonLink.astro";
+
+export async function getStaticPaths() {
+    const aulas = await getCollection("aulas");
+    return aulas.map((aula) => ({
+        params: { slug: aula.id.replace(/\.md$/, "") },
+        props: { aula },
+    }));
+}
+
+interface Props {
+    aula: CollectionEntry<"aulas">;
+}
+
+const { aula } = Astro.props;
+const { Content } = await render(aula);
+---
+
+<Base title="aula">
+    <section>
+        <div class="bg-yellow">
+            <div class="wrapper flex items-center justify-between py-2">
+                <div class="flex gap-2 items-center">
+                    <p class="font-light text-xs">AULAS</p>
+                    <p class="text-xs">/</p>
+                    <p class="uppercase font-display text-base font-bold">
+                        {aula.data.name}
+                    </p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <p class="font-bold text-black text-xs">PLANO MINIMO :</p>
+                    <p class="font-display text-base font-bold uppercase">
+                        {aula.data.plan}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-2">
+            <div class="bg-black flex flex-col wrapper py-12">
+                <p class="eyebrow">{aula.data.tag}</p>
+                <h1 class="title-display">{aula.data.name}</h1>
+                <p class="w-120 mt-4">{aula.data.desc}</p>
+
+                <div class="flex gap-3 mt-6">
+                    <ButtonLink href="/">AGENDAR AULA</ButtonLink>
+                    <ButtonLink variants="outline" href="/"
+                        >Ver horários ↓</ButtonLink
+                    >
+                </div>
+
+                <ul class="grid grid-cols-3 gap-0.5 mt-6">
+                    <li class="bg-black-mid py-4 px-4">
+                        <p class="text-yellow text-3xl font-display font-bold">
+                            {aula.data.duration.split(" ")[0]}
+                        </p>
+                        <p class="uppercase text-xs mt-2.5">minutos</p>
+                    </li>
+                    <li class="bg-black-mid py-4 px-4">
+                        <p class="text-yellow text-3xl font-display font-bold">
+                            {aula.data.spots}
+                        </p>
+                        <p class="uppercase text-xs mt-2.5">Vagas/turma</p>
+                    </li>
+                    <li class="bg-black-mid py-4 px-4">
+                        <p class="text-yellow text-3xl font-display font-bold">
+                            {aula.data.schedules?.length}x
+                        </p>
+                        <p class="uppercase text-xs mt-2.5">Por semana</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="bg-black-mid flex flex-col wrapper py-12">
+                <div
+                    class="flex items-center justify-between py-3 border-b border-border"
+                >
+                    <p class="uppercase text-xs">categoria</p>
+                    <p
+                        class="font-display uppercase font-bold text-2xl text-yellow"
+                    >
+                        {aula.data.category}
+                    </p>
+                </div>
+
+                <div
+                    class="flex items-center justify-between py-3 border-b border-border"
+                >
+                    <p class="uppercase text-xs">Nível</p>
+                    <p
+                        class="font-display uppercase font-bold text-2xl text-text-primary"
+                    >
+                        {aula.data.level}
+                    </p>
+                </div>
+
+                <div
+                    class="flex items-center justify-between py-3 border-b border-border"
+                >
+                    <p class="uppercase text-xs">Duração</p>
+                    <p
+                        class="font-display uppercase font-bold text-2xl text-text-primary"
+                    >
+                        {aula.data.duration}
+                    </p>
+                </div>
+
+                <div
+                    class="flex items-center justify-between py-3 border-b border-border"
+                >
+                    <p class="uppercase text-xs">Vagas por turma</p>
+                    <p
+                        class="font-display uppercase font-bold text-2xl text-text-primary"
+                    >
+                        {aula.data.spots} alunos
+                    </p>
+                </div>
+
+                <div
+                    class="flex items-center justify-between py-3 border-b border-border"
+                >
+                    <p class="uppercase text-xs">Instrutor principal</p>
+                    <p
+                        class="font-display uppercase font-bold text-2xl text-text-primary"
+                    >
+                        {aula.data.instructor}
+                    </p>
+                </div>
+
+                <div
+                    class="flex items-center justify-between py-3 border-b border-border"
+                >
+                    <p class="uppercase text-xs">Plano mínimo</p>
+                    <p
+                        class="font-display uppercase font-bold text-base text-black bg-yellow px-2"
+                    >
+                        {aula.data.plan}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</Base>

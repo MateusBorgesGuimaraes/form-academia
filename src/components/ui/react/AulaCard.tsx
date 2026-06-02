@@ -3,11 +3,13 @@ import { cn } from "../../../lib/utils";
 
 interface AulaCardProps {
   data: CollectionEntry<"aulas">["data"];
+  id: string;
 }
 
-export default function AulaCard({ data }: AulaCardProps) {
+export default function AulaCard({ data, id }: AulaCardProps) {
   return (
-    <div
+    <a
+      href={`/aulas/${id}`}
       className={cn(
         "group bg-black-mid py-6 px-5 border-t-2 border-transparent cursor-pointer transition-all duration-300 hover:border-yellow hover:bg-black-card",
         data.featured && "bg-yellow",
@@ -77,6 +79,6 @@ export default function AulaCard({ data }: AulaCardProps) {
       >
         {data.instructor}
       </p>
-    </div>
+    </a>
   );
 }
