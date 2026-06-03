@@ -19,9 +19,13 @@ interface Props {
 
 const { aula } = Astro.props;
 const { Content } = await render(aula);
+const todasAulas = await getCollection("aulas");
+const aulasRelacionadas = todasAulas
+    .filter((a) => a.data.category === aula.data.category && a.id !== aula.id)
+    .slice(0, 3);
 ---
 
-<Base title="aula">
+<Base title={aula.data.name}>
     <section>
         <div class="bg-yellow">
             <div class="wrapper flex items-center justify-between py-2">
@@ -142,5 +146,196 @@ const { Content } = await render(aula);
                 </div>
             </div>
         </div>
+    </section>
+
+    <section class="grid grid-cols-[1fr_340px] bg-black border-t border-border">
+        <div class="border-r border-border">
+            <div
+                class="wrapper py-14
+                       [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-3xl [&_h2]:text-text-primary
+                       [&_h2]:uppercase [&_h2]:tracking-wider [&_h2]:pb-3.5
+                       [&_h2]:border-b [&_h2]:border-border [&_h2]:mb-5 [&_h2]:mt-12
+                       first:[&_h2]:mt-0
+                       [&_p]:text-sm [&_p]:font-light [&_p]:leading-relaxed [&_p]:mb-4
+                       [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-0.5 [&_ol]:mt-1
+                       [&_ol_li]:bg-black-mid [&_ol_li]:flex [&_ol_li]:gap-4
+                       [&_ol_li]:items-start [&_ol_li]:px-5 [&_ol_li]:py-4
+                       [&_ol_li]:border-l-2 [&_ol_li]:border-transparent
+                       hover:[&_ol_li]:border-yellow
+                       [&_ol_li]:transition-colors
+                       [&_ol_li_strong]:font-display [&_ol_li_strong]:font-bold
+                       [&_ol_li_strong]:text-text-primary [&_ol_li_strong]:uppercase
+                       [&_ol_li_strong]:tracking-wide [&_ol_li_strong]:text-base
+                       [&_ol_li_strong]:block [&_ol_li_strong]:mb-1"
+            >
+                <Content />
+            </div>
+
+            {
+                aula.data.schedules && aula.data.schedules.length > 0 && (
+                    <div class="wrapper pb-14" id="horarios">
+                        <h2 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wider pb-3.5 border-b border-border mb-5">
+                            Grade de{" "}
+                            <span class="italic text-yellow">horários</span>
+                        </h2>
+                        <div class="flex flex-col gap-0.5">
+                            {aula.data.schedules.map((s) => (
+                                <div
+                                    class={`bg-black-mid grid items-center ${s.times.length >= 3 ? "border-l-2 border-yellow" : ""}`}
+                                    style="grid-template-columns: 100px 1fr auto;"
+                                >
+                                    <span class="font-display font-bold text-sm text-text-primary uppercase tracking-wider px-5 py-4 border-r border-border">
+                                        {s.day}
+                                    </span>
+                                    <div class="flex gap-2 flex-wrap px-5 py-4">
+                                        {s.times.map((t) => (
+                                            <span class="text-xs font-light text-text-muted border border-border px-2.5 py-1 tracking-wide hover:border-yellow hover:text-yellow transition-colors cursor-pointer">
+                                                {t}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <span class="text-xs font-light text-text-ghost px-5 py-4 tracking-wide text-right whitespace-nowrap">
+                                        {s.instructor}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+
+        <aside class="flex flex-col gap-7 p-10">
+            <div class="pb-7 border-b border-border">
+                <p class="label mb-3.5">Instrutor principal</p>
+                <div class="flex items-center gap-3 mb-3">
+                    <div
+                        class="w-11 h-11 rounded-full bg-black border border-border flex items-center justify-center font-display font-bold text-base text-yellow shrink-0"
+                    >
+                        {
+                            aula.data.instructor
+                                .split(" ")
+                                .map((w: string) => w[0])
+                                .join("")
+                                .slice(0, 2)
+                                .toUpperCase()
+                        }
+                    </div>
+                    <div>
+                        <p
+                            class="font-display font-bold text-lg text-text-primary uppercase tracking-wide leading-none"
+                        >
+                            {aula.data.instructor}
+                        </p>
+                        <p
+                            class="text-[10px] font-light text-yellow uppercase tracking-widest mt-1"
+                        >
+                            {aula.data.category} · FORM
+                        </p>
+                    </div>
+                </div>
+                <a
+                    href={`/personal/${aula.data.instructor.toLowerCase().replace(/\s+/g, "-")}`}
+                    class="inline-block mt-3 text-[10px] font-medium tracking-widest uppercase text-yellow border-b border-border pb-0.5 hover:border-yellow transition-colors"
+                >
+                    Ver perfil completo →
+                </a>
+            </div>
+
+            <div class="bg-yellow p-5">
+                <p
+                    class="font-display font-bold text-[11px] tracking-widest uppercase text-black/40 mb-1.5"
+                >
+                    Plano mínimo necessário
+                </p>
+                <p
+                    class="font-display font-bold text-4xl text-black uppercase leading-none"
+                >
+                    {aula.data.plan}
+                </p>
+                <p
+                    class="text-xs font-light text-black/50 mt-2 leading-relaxed"
+                >
+                    {
+                        aula.data.plan === "Basic" &&
+                            "Musculação livre, avaliação física e acesso a 1 unidade."
+                    }
+                    {
+                        aula.data.plan === "Pro" &&
+                            "Aulas coletivas ilimitadas, acesso a todas as unidades e planilha de treino."
+                    }
+                    {
+                        aula.data.plan === "Elite" &&
+                            "Tudo do Pro mais 4 sessões de personal por mês e área VIP."
+                    }
+                </p>
+                <ButtonLink
+                    href="/"
+                    class="w-full bg-black text-yellow text-[10px] font-semibold tracking-widest uppercase py-3 mt-3.5 cursor-pointer hover:bg-black-mid transition-colors border-none"
+                >
+                    Assinar plano {aula.data.plan}
+                </ButtonLink>
+            </div>
+
+            {
+                aulasRelacionadas.length > 0 && (
+                    <div class="pb-7 border-b border-border">
+                        <p class="label mb-3.5">
+                            Outras aulas de {aula.data.category}
+                        </p>
+                        <div class="flex flex-col gap-0.5">
+                            {aulasRelacionadas.map((a) => (
+                                <a
+                                    href={`/aulas/${a.id.replace(/\.md$/, "")}`}
+                                    class="group bg-black-mid px-3.5 py-3 flex items-center justify-between hover:bg-black-card transition-colors"
+                                >
+                                    <div>
+                                        <p class="text-[9px] tracking-widest uppercase text-yellow mb-1">
+                                            {a.data.category}
+                                        </p>
+                                        <p class="font-display font-bold text-base text-text-muted uppercase tracking-wide group-hover:text-text-primary transition-colors">
+                                            {a.data.name}
+                                        </p>
+                                    </div>
+                                    <span class="text-border group-hover:text-text-ghost text-sm ml-2.5 shrink-0 transition-colors">
+                                        →
+                                    </span>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                )
+            }
+
+            <div>
+                <p class="label mb-3.5">Indicado para</p>
+                <p
+                    class="font-display font-bold text-2xl text-text-primary uppercase tracking-wide"
+                >
+                    {aula.data.level === "Todos" && "Qualquer nível"}
+                    {aula.data.level === "Iniciante" && "Iniciantes"}
+                    {aula.data.level === "Intermediário" && "Intermediários"}
+                    {aula.data.level === "Avançado" && "Nível avançado"}
+                </p>
+                <p class="text-xs font-light mt-2 leading-relaxed">
+                    {
+                        aula.data.level === "Todos" &&
+                            "Adaptamos os exercícios para qualquer nível. Sem experiência prévia necessária."
+                    }
+                    {
+                        aula.data.level === "Iniciante" &&
+                            "Exercícios ensinados do zero. Perfeito para quem está começando."
+                    }
+                    {
+                        aula.data.level === "Intermediário" &&
+                            "Recomendamos ao menos 3 meses de treino regular antes de ingressar."
+                    }
+                    {
+                        aula.data.level === "Avançado" &&
+                            "Exige base sólida de condicionamento. Consulte o instrutor antes de participar."
+                    }
+                </p>
+            </div>
+        </aside>
     </section>
 </Base>
