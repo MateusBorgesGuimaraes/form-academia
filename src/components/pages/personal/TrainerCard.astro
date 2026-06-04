@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+    trainer: CollectionEntry<"trainers">;
+}
+
+const { trainer } = Astro.props;
+
+const shortBio =
+    trainer.data.bio.length > 140
+        ? `${trainer.data.bio.slice(0, 140)}...`
+        : trainer.data.bio;
+---
+
+<a
+    href={`/personal/${trainer.data.name.toLowerCase().replace(/\s+/g, "-")}`}
+    class="bg-black-mid py-8 px-8 flex gap-8 transition hover:bg-black-card"
+>
+    <div
+        class="bg-black rounded-full size-15 shrink-0 flex items-center justify-center text-yellow font-display font-bold text-2xl"
+    >
+        {
+            trainer.data.name
+                .split(" ")
+                .map((w: string) => w[0])
+                .join("")
+                .slice(0, 2)
+                .toUpperCase()
+        }
+    </div>
+
+    <div>
+        <h2 class="text-xl mb-1.5">{trainer.data.name}</h2>
+        <p class="eyebrow">{trainer.data.spec}</p>
+        <p class="text-sm py-3">{shortBio}</p>
+        <div class="flex flex-wrap gap-1">
+            {
+                trainer.data.tags.map((t) => (
+                    <p class="text-xs border border-border p-1">{t}</p>
+                ))
+            }
+        </div>
+    </div>
+</a>

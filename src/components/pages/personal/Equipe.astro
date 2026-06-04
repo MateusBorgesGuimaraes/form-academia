@@ -1,0 +1,20 @@
+---
+import { getCollection } from "astro:content";
+import TrainerCard from "./TrainerCard.astro";
+
+const trainers = await getCollection("trainers");
+---
+
+<section class="wrapper py-12">
+    <div>
+        <span class="eyebrow">Nossa equipe </span>
+        <h2 class="title-page">
+            Conheça os
+            <br />
+            <span class="text-yellow italic">trainers. </span>
+        </h2>
+    </div>
+    <div class="grid grid-cols-2 gap-0.5 mt-8">
+        {trainers.map((t) => <TrainerCard trainer={t} />)}
+    </div>
+</section>

@@ -1,0 +1,64 @@
+---
+const benefits = [
+    {
+        id: "01",
+        title: "Avaliação física completa",
+        description:
+            "Bioimpedância, medidas corporais, teste de força e mobilidade. Base para o seu protocolo.",
+    },
+    {
+        id: "02",
+        title: "Planilha personalizada",
+        description:
+            "Treino montado do zero para os seus objetivos, disponível no app FORM.",
+    },
+    {
+        id: "03",
+        title: "Sessões acompanhadas",
+        description:
+            "Execução supervisionada com correção de postura e progressão de carga.",
+    },
+    {
+        id: "04",
+        title: "Reavaliação mensal",
+        description:
+            "Acompanhamento da evolução e ajuste do protocolo todo mês.",
+    },
+];
+---
+
+<section class="border-b border-border">
+    <div class="wrapper py-12 grid gap-6 grid-cols-2">
+        <div>
+            <span class="eyebrow">Personal Training</span>
+            <h1 class="title-display">
+                Treino <br />
+                feito pra <br /><span class="text-yellow italic">você.</span>
+            </h1>
+
+            <p class="mt-4">
+                Metodologia individualizada com avaliação física completa,
+                planilha de treino periódica e acompanhamento nutricional
+                integrado. Para quem quer resultado real.
+            </p>
+        </div>
+
+        <ul class="flex flex-col gap-0.5">
+            {
+                benefits.map((b) => (
+                    <li class="bg-black-mid flex gap-6 px-6 py-6 ">
+                        <span class="font-display text-3xl text-yellow font-bold">
+                            {b.id}
+                        </span>
+                        <div>
+                            <h2 class="font-display text-xl text-text-primary">
+                                {b.title}
+                            </h2>
+                            <p class="text-sm mt-4">{b.description}</p>
+                        </div>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</section>
