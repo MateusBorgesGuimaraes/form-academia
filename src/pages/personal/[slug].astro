@@ -1,0 +1,197 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { getCollection } from "astro:content";
+import { render } from "astro:content";
+import { formatTrainerSummary } from "../../lib/format-trainer-sumary";
+import ButtonLink from "../../components/ui/ButtonLink.astro";
+
+export async function getStaticPaths() {
+    const trainers = await getCollection("trainers");
+    return trainers.map((trainer) => ({
+        params: { slug: trainer.id.replace(/\.md$/, "") },
+        props: { trainer },
+    }));
+}
+
+interface Props {
+    trainer: CollectionEntry<"trainers">;
+}
+
+const { trainer } = Astro.props;
+const { Content } = await render(trainer);
+---
+
+<Base title={trainer.data.name}>
+    <section class="wrapper grid grid-cols-2 gap-8 py-12">
+        <div class="flex flex-col gap-3">
+            <p class="eyebrow-muted">
+                Personal / <span class="text-yellow">{trainer.data.name}</span>
+            </p>
+            <p class="eyebrow">Personal Trainer</p>
+            <h1 class="title-display">{trainer.data.name}</h1>
+            <p class="font-display italic text-2xl text-yellow">
+                {trainer.data.spec}
+            </p>
+
+            <p class="text-sm">
+                {formatTrainerSummary(trainer)}
+            </p>
+
+            <div class="flex gap-3">
+                <ButtonLink href="/">Agendar avaliação</ButtonLink>
+                <ButtonLink variants="outline" href="/">Ver Horários</ButtonLink
+                >
+            </div>
+        </div>
+
+        <div>
+            <ul class="flex flex-col gap-0.5">
+                <li class="bg-black-mid flex items-center gap-6 px-6 py-6">
+                    <p class="font-display text-4xl text-yellow font-bold">
+                        {trainer.data.experience}+
+                    </p>
+                    <p class="text-sm">
+                        Anos de experiência com personal training
+                    </p>
+                </li>
+
+                <li class="bg-black-mid flex items-center gap-6 px-6 py-6">
+                    <p class="font-display text-4xl text-yellow font-bold">
+                        {trainer.data.students}+
+                    </p>
+                    <p class="text-sm">Alunos atendidos ao longo da carreira</p>
+                </li>
+
+                <li class="bg-black-mid flex items-center gap-6 px-6 py-6">
+                    <p class="font-display text-4xl text-yellow font-bold">
+                        {trainer.data.satisfaction}%
+                    </p>
+                    <p class="text-sm">Taxa de satisfação dos alunos ativos</p>
+                </li>
+
+                <li class="bg-black-mid flex items-center gap-6 px-6 py-6">
+                    <p
+                        class="font-display text-4xl text-yellow font-bold uppercase"
+                    >
+                        cref
+                    </p>
+                    <p class="text-sm">
+                        {trainer.data.cref}
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="border-t border-border">
+        <div class="wrapper grid grid-cols-2">
+            <div class="border-r border-border">
+                <div
+                    class="py-14 pr-12
+                       [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-3xl [&_h2]:text-text-primary
+                       [&_h2]:uppercase [&_h2]:tracking-wider [&_h2]:pb-3.5
+                       [&_h2]:border-b [&_h2]:border-border [&_h2]:mb-5 [&_h2]:mt-12
+                       first:[&_h2]:mt-0
+                       [&_p]:text-sm [&_p]:font-light [&_p]:leading-relaxed [&_p]:mb-4
+                       [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-0.5 [&_ol]:mt-1
+                       [&_ol_li]:bg-black-mid [&_ol_li]:flex [&_ol_li]:gap-4
+                       [&_ol_li]:items-start [&_ol_li]:px-5 [&_ol_li]:py-4
+                       [&_ol_li]:border-l-2 [&_ol_li]:border-transparent
+                       hover:[&_ol_li]:border-yellow
+                       [&_ol_li]:transition-colors
+                       [&_ol_li_strong]:font-display [&_ol_li_strong]:font-bold
+                       [&_ol_li_strong]:text-text-primary [&_ol_li_strong]:uppercase
+                       [&_ol_li_strong]:tracking-wide [&_ol_li_strong]:text-base
+                       [&_ol_li_strong]:block [&_ol_li_strong]:mb-1"
+                >
+                    <h2>
+                        sobre <span class="text-yellow"
+                            >- {trainer.data.name}</span
+                        >
+                    </h2>
+                    <Content />
+                    <h2 class="pt-4">
+                        Formação & <span class="text-yellow">certificações</span
+                        >
+                    </h2>
+                    <ul class="flex flex-col gap-4">
+                        {
+                            trainer.data.formation.map((f) => (
+                                <li class="flex gap-4 border-b border-border last-of-type:border-none">
+                                    <span class="font-display font-bold uppercase text-yellow">
+                                        {f.year}
+                                    </span>
+                                    <div class="flex flex-col gap-0.5">
+                                        <span class="mb-0 text-text-primary">
+                                            {f.title}
+                                        </span>
+                                        <p class="text-xs!">{f.institution}</p>
+                                    </div>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="py-14 pl-12">
+                <h2 class="text-3xl pb-3.5
+            border-b border-border">
+                    Áreas de <span class="text-yellow">especialidade</span>
+                </h2>
+
+                <div class="grid grid-cols-2 gap-0.5 mt-4">
+                    {
+                        trainer.data.specialties.map((e) => (
+                            <div class="p-4 bg-black-mid border-t-2 border-transparent transition hover:border-yellow">
+                                <h4 class="text-xl uppercase pb-4">{e.name}</h4>
+                                <p class="text-xs">{e.desc}</p>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                {
+                    trainer.data.availability &&
+                        trainer.data.availability.length > 0 && (
+                            <>
+                                <h2 class="font-display font-bold text-3xl text-text-primary uppercase tracking-wider pb-3.5 border-b border-border mt-12 mb-0">
+                                    Disponibilidade{" "}
+                                    <span class="text-yellow italic">
+                                        semanal
+                                    </span>
+                                </h2>
+
+                                <div class="flex flex-col gap-0.5 mt-4">
+                                    {trainer.data.availability.map((a) => (
+                                        <div
+                                            class="bg-black-mid grid items-stretch"
+                                            style="grid-template-columns: 56px 1fr;"
+                                        >
+                                            <div class="flex items-center justify-center border-r border-border py-3 px-2">
+                                                <span class="font-display font-bold text-sm text-text-primary uppercase tracking-wider">
+                                                    {a.day}
+                                                </span>
+                                            </div>
+
+                                            <div class="flex flex-wrap gap-1.5 px-4 py-3 items-center">
+                                                {a.slots.map((slot) => (
+                                                    <span class="font-sans text-[10px] font-light text-text-muted border border-border px-2.5 py-1 tracking-widest hover:border-yellow hover:text-yellow transition-colors cursor-pointer select-none">
+                                                        {slot}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                <p class="text-[10px] font-light text-text-ghost tracking-widest uppercase mt-3">
+                                    Horários sujeitos a disponibilidade ·
+                                    Confirme ao agendar
+                                </p>
+                            </>
+                        )
+                }
+            </div>
+        </div>
+    </section>
+</Base>

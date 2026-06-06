@@ -20,14 +20,7 @@ const shortBio =
     <div
         class="bg-black rounded-full size-15 shrink-0 flex items-center justify-center text-yellow font-display font-bold text-2xl"
     >
-        {
-            trainer.data.name
-                .split(" ")
-                .map((w: string) => w[0])
-                .join("")
-                .slice(0, 2)
-                .toUpperCase()
-        }
+        {trainer.data.initials}
     </div>
 
     <div>
