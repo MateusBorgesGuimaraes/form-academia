@@ -1,0 +1,112 @@
+---
+const features: {
+    label: string;
+    basic: string | boolean;
+    pro: string | boolean;
+    elite: string | boolean;
+}[] = [
+    { label: "Musculação livre", basic: true, pro: true, elite: true },
+    { label: "Avaliação física inicial", basic: true, pro: true, elite: true },
+    { label: "App FORM", basic: true, pro: true, elite: true },
+    {
+        label: "Acesso à unidade",
+        basic: "1 unidade",
+        pro: "Todas",
+        elite: "Todas",
+    },
+    { label: "Aulas coletivas", basic: false, pro: true, elite: true },
+    { label: "Planilha de treino", basic: false, pro: true, elite: true },
+    {
+        label: "Consulta nutricional",
+        basic: false,
+        pro: "Mensal",
+        elite: "Mensal",
+    },
+    { label: "Personal training", basic: false, pro: false, elite: "4x/mês" },
+    { label: "Reavaliação física", basic: false, pro: false, elite: "Mensal" },
+    { label: "Área VIP vestiário", basic: false, pro: false, elite: true },
+    { label: "Prioridade agendamento", basic: false, pro: false, elite: true },
+    { label: "Desconto em produtos", basic: false, pro: false, elite: true },
+];
+---
+
+<div class="bg-black-mid px-12">
+    <p class="font-display font-bold text-2xl text-text-primary uppercase mb-6">
+        Comparativo
+    </p>
+
+    <div class="grid" style="grid-template-columns: 2fr 1fr 1fr 1fr;">
+        <div
+            class="text-xs font-semibold tracking-[0.18em] uppercase text-text-ghost px-4 py-3 border-b border-border"
+        >
+            Funcionalidade
+        </div>
+        <div
+            class="text-xs font-semibold tracking-[0.18em] uppercase text-text-ghost px-4 py-3 border-b border-border"
+        >
+            Basic
+        </div>
+        <div
+            class="text-xs font-semibold tracking-[0.18em] uppercase text-yellow px-4 py-3 border-b border-border"
+        >
+            Pro
+        </div>
+        <div
+            class="text-xs font-semibold tracking-[0.18em] uppercase text-text-ghost px-4 py-3 border-b border-border"
+        >
+            Elite
+        </div>
+
+        {
+            features.map((row) => (
+                <>
+                    <div class="text-xs font-light text-text-primary px-4 py-3 border-b border-border">
+                        {row.label}
+                    </div>
+
+                    {row.basic === false ? (
+                        <div class="text-sm text-text-dim px-4 py-3 border-b border-border">
+                            —
+                        </div>
+                    ) : row.basic === true ? (
+                        <div class="text-sm text-yellow px-4 py-3 border-b border-border">
+                            ✓
+                        </div>
+                    ) : (
+                        <div class="text-xs font-light text-text-ghost px-4 py-3 border-b border-border">
+                            {row.basic}
+                        </div>
+                    )}
+
+                    {row.pro === false ? (
+                        <div class="text-sm text-text-dim px-4 py-3 border-b border-border">
+                            —
+                        </div>
+                    ) : row.pro === true ? (
+                        <div class="text-sm text-yellow px-4 py-3 border-b border-border">
+                            ✓
+                        </div>
+                    ) : (
+                        <div class="text-xs font-light text-text-ghost px-4 py-3 border-b border-border">
+                            {row.pro}
+                        </div>
+                    )}
+
+                    {row.elite === false ? (
+                        <div class="text-sm text-text-dim px-4 py-3 border-b border-border">
+                            —
+                        </div>
+                    ) : row.elite === true ? (
+                        <div class="text-sm text-yellow px-4 py-3 border-b border-border">
+                            ✓
+                        </div>
+                    ) : (
+                        <div class="text-xs font-light text-text-ghost px-4 py-3 border-b border-border">
+                            {row.elite}
+                        </div>
+                    )}
+                </>
+            ))
+        }
+    </div>
+</div>
