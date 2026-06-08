@@ -237,11 +237,10 @@ h6 {
         letter-spacing: 0.14em;
         text-transform: uppercase;
         padding: 12px 24px;
-        transition: all var(--transition);
+
         white-space: nowrap;
         cursor: pointer;
         border: none;
-        border-radius: var(--radius-none);
     }
 
     .btn-yellow {

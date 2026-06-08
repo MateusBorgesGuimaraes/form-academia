@@ -1,0 +1,93 @@
+---
+import { Phone, Mail, MapPin } from "lucide-astro";
+import Input from "../../ui/Input.astro";
+import TextArea from "../../ui/TextArea.astro";
+import Select from "../../ui/Select.astro";
+import Button from "../../ui/Button.astro";
+
+const opt = [
+    {
+        value: "selecione",
+        label: "Selecione",
+    },
+    {
+        value: "conhecer",
+        label: "Quero conhecer a academia",
+    },
+    {
+        value: "planos",
+        label: "Dúvida sobre planos",
+    },
+
+    {
+        value: "personal",
+        label: "Personal Training",
+    },
+
+    {
+        value: "outro",
+        label: "Outro",
+    },
+];
+---
+
+<section class="wrapper grid grid-cols-2 gap-12 py-6">
+    <div>
+        <span class="eyebrow">Fale com a FORM</span>
+
+        <h1 class="text-7xl mt-2">
+            Vem <br />
+            treinar <br />
+            <span class="text-yellow italic">com a</span>
+            <br />
+            <span class="text-yellow italic">gente. </span>
+        </h1>
+
+        <ul class="mt-6 flex flex-col gap-4">
+            <li class="flex gap-3">
+                <div class="p-1.5 border border-border-mid self-start">
+                    <Phone class="size-4 text-yellow" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p class="text-yellow uppercase text-xs">Telefone</p>
+                    <p class="text-xs">(11) 3000-0000</p>
+                    <p class="text-xs">(11) 99999-0000</p>
+                </div>
+            </li>
+
+            <li class="flex gap-3">
+                <div class="p-1.5 border border-border-mid self-start">
+                    <Mail class="size-4 text-yellow" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p class="text-yellow uppercase text-xs">E-mail</p>
+                    <p class="text-xs">contato@formacademia.com.br</p>
+                </div>
+            </li>
+
+            <li class="flex gap-3">
+                <div class="p-1.5 border border-border-mid self-start">
+                    <MapPin class="size-4 text-yellow" />
+                </div>
+                <div class="flex flex-col gap-1">
+                    <p class="text-yellow uppercase text-xs">Instagram</p>
+                    <p class="text-xs">@formacademia</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        <h3 class="text-text-primary text-3xl uppercase">FALE COM A GENTE</h3>
+        <div class="mt-6 flex flex-col gap-4">
+            <div class="flex gap-2">
+                <Input title="nome" placeholder="Seu nome" />
+                <Input title="Telefone" placeholder="(11) 00000-0000" />
+            </div>
+            <Input title="E-mail" placeholder="seu@gmial.com" />
+            <Select title="Assunto" options={opt} name="assunto" />
+            <TextArea title="Mensagem" placeholder="Como podemos te ajudar?" />
+            <Button variants="outline">Enviar mensagem</Button>
+        </div>
+    </div>
+</section>

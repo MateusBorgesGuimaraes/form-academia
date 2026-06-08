@@ -1,0 +1,19 @@
+---
+interface Props {
+    title: string;
+    placeholder?: string;
+    type?: "text" | "email" | "password" | "tel" | "number";
+}
+
+const { title, type = "text", placeholder } = Astro.props;
+---
+
+<div class="flex flex-col gap-1 w-full">
+    <label class="text-xs text-text-muted uppercase" for={title}>{title}</label>
+    <input
+        class="h-10 bg-black-mid placeholder:text-text-muted/40 border border-border py-2 px-3 w-full placeholder:text-xs placeholder:uppercase focus:border-yellow focus:outline-none"
+        placeholder={placeholder}
+        id={title}
+        type={type}
+    />
+</div>

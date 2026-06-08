@@ -1,0 +1,62 @@
+---
+import { sessionDrivers } from "astro/config";
+
+const cardsInfo = [
+    {
+        name: "FORM Paulista",
+        adress: ["Av. Paulista, 900 — Bela Vista", "São Paulo, SP · 01310-100"],
+        schedules: [
+            { days: "Seg - Sex", hours: "5h30 – 23h" },
+            { days: "Sábado", hours: "7h – 20h" },
+            { days: "Domingo", hours: "8h – 18h" },
+        ],
+    },
+    {
+        name: "FORM Pinheiros",
+        adress: [
+            "R. dos Pinheiros, 450 — Pinheiros",
+            "São Paulo, SP · 05422-000",
+        ],
+        schedules: [
+            { days: "Seg - Sex", hours: "6h – 22h30" },
+            { days: "Sábado", hours: "7h – 20h" },
+            { days: "Domingo", hours: "8h – 17h" },
+        ],
+    },
+];
+---
+
+<section class="bg-black-mid py-12">
+    <div class="wrapper">
+        <h2 class="title-page">
+            NOSSAS
+            <span class="text-yellow italic">UNIDADES</span>
+        </h2>
+        <div class="grid grid-cols-2 gap-0.5 mt-6">
+            {
+                cardsInfo.map((c) => (
+                    <div class="px-6 py-8 bg-black-card">
+                        <h3 class="text-text-primary font-display text-2xl uppercase">
+                            {c.name}
+                        </h3>
+                        <div class="mt-2 mb-4 flex flex-col gap-1">
+                            {c.adress.map((a) => (
+                                <p class="text-xs">{a}</p>
+                            ))}
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            {c.schedules.map((s) => (
+                                <div class="border-b border-border-mid pb-1 text-xs flex items-center justify-between last-of-type:border-none">
+                                    <p class="text-text-muted font-medium">
+                                        {s.days}
+                                    </p>
+                                    <p>{s.hours}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
