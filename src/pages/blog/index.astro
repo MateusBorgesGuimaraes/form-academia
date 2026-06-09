@@ -1,0 +1,10 @@
+---
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import BlogPage from "../../components/pages/blog/BlogPage";
+const post = await getCollection("blog");
+---
+
+<Base title="blog">
+    <BlogPage client:load posts={post} />
+</Base>
