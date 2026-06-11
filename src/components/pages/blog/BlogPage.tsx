@@ -122,7 +122,7 @@ export default function BlogPage({ posts }: Props) {
             </div>
 
             <a
-              href={"/"}
+              href={`/blog/${featured?.id}`}
               className="mt-6 self-start text-lg font-display font-semibold uppercase no-underline border-b-[0.5px] pb-0.75 inline-block transition text-yellow border-border-sub hover:border-yellow"
             >
               Ler artigo →
@@ -142,7 +142,10 @@ export default function BlogPage({ posts }: Props) {
                 className="group border-b border-border last-of-type:border-none hover:bg-black-mid transition-colors
                     duration-200"
               >
-                <a className="flex gap-6 items-center py-6 pl-12 pr-6" href="/">
+                <a
+                  className="flex gap-6 items-center py-6 pl-12 pr-6"
+                  href={`/blog/${p.id}`}
+                >
                   <span className="font-display font-bold text-4xl text-text-dim transition-colors  group-hover:text-yellow">
                     0{i + 2}
                   </span>
@@ -175,7 +178,7 @@ export default function BlogPage({ posts }: Props) {
             {allActive.map((post) => (
               <a
                 key={post.id}
-                href="/"
+                href={`/blog/${post.id}`}
                 className="group border border-border p-8 bg-black hover:bg-black-mid transition-colors min-h-65 flex flex-col justify-between"
               >
                 <div>
@@ -226,7 +229,7 @@ export default function BlogPage({ posts }: Props) {
           <div className="grid grid-cols-5 gap-3 flex-1">
             {afterSix.map((a) => (
               <a
-                href="/"
+                href={`/blog/${a.id}`}
                 key={a.data.title}
                 className="text-text-dim px-2 py-2 w-full overflow-hidden truncate text-base uppercase font-display font-semibold transition hover:text-yellow"
                 title={a.data.title}

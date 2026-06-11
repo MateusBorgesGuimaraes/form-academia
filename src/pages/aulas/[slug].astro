@@ -4,6 +4,7 @@ import Base from "../../layouts/Base.astro";
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import ButtonLink from "../../components/ui/ButtonLink.astro";
+import ContentStyles from "../../components/ui/ContentStyles.astro";
 
 export async function getStaticPaths() {
     const aulas = await getCollection("aulas");
@@ -150,25 +151,10 @@ const aulasRelacionadas = todasAulas
 
     <section class="grid grid-cols-[1fr_340px] bg-black border-t border-border">
         <div class="border-r border-border">
-            <div
-                class="wrapper py-14
-                       [&_h2]:font-display [&_h2]:font-bold [&_h2]:text-3xl [&_h2]:text-text-primary
-                       [&_h2]:uppercase [&_h2]:tracking-wider [&_h2]:pb-3.5
-                       [&_h2]:border-b [&_h2]:border-border [&_h2]:mb-5 [&_h2]:mt-12
-                       first:[&_h2]:mt-0
-                       [&_p]:text-sm [&_p]:font-light [&_p]:leading-relaxed [&_p]:mb-4
-                       [&_ol]:flex [&_ol]:flex-col [&_ol]:gap-0.5 [&_ol]:mt-1
-                       [&_ol_li]:bg-black-mid [&_ol_li]:flex [&_ol_li]:gap-4
-                       [&_ol_li]:items-start [&_ol_li]:px-5 [&_ol_li]:py-4
-                       [&_ol_li]:border-l-2 [&_ol_li]:border-transparent
-                       hover:[&_ol_li]:border-yellow
-                       [&_ol_li]:transition-colors
-                       [&_ol_li_strong]:font-display [&_ol_li_strong]:font-bold
-                       [&_ol_li_strong]:text-text-primary [&_ol_li_strong]:uppercase
-                       [&_ol_li_strong]:tracking-wide [&_ol_li_strong]:text-base
-                       [&_ol_li_strong]:block [&_ol_li_strong]:mb-1"
-            >
-                <Content />
+            <div class="wrapper py-14">
+                <ContentStyles>
+                    <Content />
+                </ContentStyles>
             </div>
 
             {

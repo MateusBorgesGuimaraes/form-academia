@@ -1,0 +1,166 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { getCollection } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { formatDate } from "../../lib/format-date";
+import ContentStyles from "../../components/ui/ContentStyles.astro";
+
+export async function getStaticPaths() {
+    const blog = await getCollection("blog");
+    return blog.map((post) => ({
+        params: { slug: post.id.replace(/\.md$/, "") },
+        props: { post },
+    }));
+}
+
+interface Props {
+    post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const todosPosts = await getCollection("blog");
+let postsRelacionados = todosPosts
+    .filter((p) => p.data.category === post.data.category && p.id !== post.id)
+    .slice(0, 3);
+
+if (postsRelacionados.length < 3) {
+    const extras = todosPosts.filter(
+        (p) =>
+            p.id !== post.id && !postsRelacionados.some((r) => r.id === p.id),
+    );
+
+    postsRelacionados = [...postsRelacionados, ...extras].slice(0, 3);
+}
+
+const words = post.data.title.split(" ");
+
+const eligibleWords = words
+    .map((word, index) => ({
+        word,
+        index,
+    }))
+    .filter(({ word }) => word.replace(/[^\wÀ-ÿ]/g, "").length > 5);
+
+const highlightedIndex =
+    eligibleWords.length > 0
+        ? eligibleWords[Math.floor(Math.random() * eligibleWords.length)].index
+        : -1;
+---
+
+<Base title={post.data.title}>
+    <section>
+        <div class="bg-yellow">
+            <div class="wrapper flex items-center justify-between py-2">
+                <p
+                    class="uppercase font-display text-lg font-bold tracking-widest text-black"
+                >
+                    {post.data.category}
+                </p>
+
+                <div class="flex items-center gap-2">
+                    <p class="text-sm">{post.data.author}</p>
+                    <p class="text-sm">·</p>
+                    <p class="text-sm">
+                        {formatDate(post.data.date)}
+                    </p>
+                    <p class="text-sm">·</p>
+                    <p class="text-sm">
+                        {post.data.readTime} de leitura
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper py-12">
+            <h1 class="title-display">
+                {
+                    words.map((word, index) => (
+                        <>
+                            <span
+                                class={
+                                    index === highlightedIndex
+                                        ? "text-yellow italic"
+                                        : undefined
+                                }
+                            >
+                                {word}
+                            </span>
+                            {index < words.length - 1 && " "}
+                        </>
+                    ))
+                }
+            </h1>
+        </div>
+        <div class="border-y-[0.5px] border-border">
+            <div class="wrapper grid grid-cols-3 items-stretch">
+                <div class="flex flex-col justify-center gap-3 py-3">
+                    <span class="eyebrow-muted">Autor</span>
+                    <p
+                        class="text-yellow font-display font-bold uppercase text-lg"
+                    >
+                        {post.data.author}
+                    </p>
+                </div>
+
+                <div
+                    class="flex flex-col justify-center gap-3 px-6 border-x-[0.5px] border-border py-3"
+                >
+                    <span class="eyebrow-muted">Tempo de leitura</span>
+
+                    <p
+                        class="text-text-muted font-display font-bold uppercase text-lg"
+                    >
+                        {post.data.readTime}
+                    </p>
+                </div>
+
+                <div class="flex flex-col justify-center gap-3 px-6 py-3">
+                    <span class="eyebrow-muted">Categoria</span>
+
+                    <p
+                        class="text-text-muted font-display font-bold uppercase text-lg"
+                    >
+                        {post.data.category}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
+            <p
+                class="text-3xl font-display! font-bold py-12 italic border-b border-border"
+            >
+                {post.data.excerpt}
+            </p>
+            <div class="py-12">
+                <ContentStyles>
+                    <Content />
+                </ContentStyles>
+            </div>
+        </div>
+        <div class="bg-black-mid">
+            <div class="wrapper py-6">
+                <p class="eyebrow mb-5">ARTIGOS REALCIONADOS</p>
+                <div class="flex gap-1">
+                    {
+                        postsRelacionados.map((p) => (
+                            <a
+                                href={`/blog/${p.id}`}
+                                class="bg-black-card py-6 px-6 flex flex-col gap-2 max-w-70 border-t-2 border-transparent group transition-colors
+                                    duration-200 hover:bg-black"
+                            >
+                                <span class="eyebrow">{p.data.category}</span>
+                                <h3
+                                    class="text-xl font-bold text-text-muted! transition-colors
+                                    duration-200 group-hover:text-text-primary!"
+                                >
+                                    {p.data.title}
+                                </h3>
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </div>
+    </section>
+</Base>
